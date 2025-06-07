@@ -1,0 +1,6 @@
+
+# Ignored folders
+
+.metadata/
+.vs/
+*.ts
