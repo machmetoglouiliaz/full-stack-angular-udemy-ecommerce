@@ -22,4 +22,5 @@ public class ProductCategory {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCategory")
     private Set<Product> products;
+
 }
