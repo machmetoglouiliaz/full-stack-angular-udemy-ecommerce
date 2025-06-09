@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+  <th>Name</th>
+  <th>Price</th>
+  <th>Units in Stock</th>
+  </thead>
+  <tbody *ngIf="products">
+
+    <tr *ngFor="let product of products">
+      <td>{{product.name}}</td>
+      <td>{{product.unitPrice}}</td>
+      <td>{{product.unitsInStock}}</td>
+    </tr>
+  </tbody>
+  
+</table>
+
+

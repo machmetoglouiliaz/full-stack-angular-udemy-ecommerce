@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../../services/product';
+import { ProductService } from '../../services/product-service';
 import { Product } from '../../common/product';
 import { OnInit } from '../../../../node_modules/@angular/core/index';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
   standalone: false,
-  templateUrl: './product-list.html',
+  templateUrl: './product-list-table.html',
+  //templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })
 export class ProductList implements OnInit {
@@ -15,6 +17,7 @@ export class ProductList implements OnInit {
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
+    
     this.listProducts();
   }
 
@@ -23,6 +26,7 @@ export class ProductList implements OnInit {
       data => {
         this.products = data;
       }
-    )
+    );
+    
   }
 }

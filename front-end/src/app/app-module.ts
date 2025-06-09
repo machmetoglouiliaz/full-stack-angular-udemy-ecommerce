@@ -1,12 +1,11 @@
-import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { ProductList } from './component/product-list/product-list';
-import { ProductService } from './services/product';
-import { provideHttpClient } from '@angular/common/http';
+import { ProductList } from './components/product-list/product-list';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductService } from './services/product-service';
 
 @NgModule({
   declarations: [
@@ -15,13 +14,12 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
-    provideHttpClient(),
-    ProductService,
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    ProductService
   ],
   bootstrap: [App]
 })
