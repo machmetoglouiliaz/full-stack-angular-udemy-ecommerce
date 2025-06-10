@@ -7,7 +7,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-product-list',
   standalone: false,
-  templateUrl: './product-list-table.html',
+  templateUrl: './product-list-grid.html',
   //templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })

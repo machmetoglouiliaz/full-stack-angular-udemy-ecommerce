@@ -3,3 +3,8 @@
 
 .metadata/
 .vs/
+*.js
+
+02-starter-files-v2.0/
+*.jpg
+*.png
