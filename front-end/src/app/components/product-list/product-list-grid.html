@@ -1,26 +1,19 @@
-<table class="table">
-
-  <thead class="table-dark">
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Units in Stock</th>
-    </tr>
-  </thead>
-
-  <tbody *ngIf="products">
-
-    <tr *ngFor="let product of products">
-      <td class="align-middle">
-        <img src="{{product.imageUrl}}" height="50"/>
-      </td>
-      <td class="align-middle">{{product.name}}</td>
-      <td class="align-middle">{{product.unitPrice}}</td>
-      <td class="align-middle">{{product.unitsInStock}}</td>
-    </tr>
-  </tbody>
-  
-</table>
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- loop over the vollection of products -->
+        @for(product of products; track $index){
+          <div class="product-box col-md-3">
+            <img src="{{product.imageUrl}}" class="img-responsive"/>
+            <h1>{{product.name}}</h1>
+            <div class="price">{{product.unitPrice | currency: 'EUR'}}</div>
+            <a href="#" class="primary-btn">Add to cart</a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
 
 
