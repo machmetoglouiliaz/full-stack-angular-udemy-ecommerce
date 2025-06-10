@@ -1,15 +1,23 @@
 <table class="table">
-  <thead>
-  <th>Name</th>
-  <th>Price</th>
-  <th>Units in Stock</th>
+
+  <thead class="table-dark">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Units in Stock</th>
+    </tr>
   </thead>
+
   <tbody *ngIf="products">
 
     <tr *ngFor="let product of products">
-      <td>{{product.name}}</td>
-      <td>{{product.unitPrice}}</td>
-      <td>{{product.unitsInStock}}</td>
+      <td class="align-middle">
+        <img src="{{product.imageUrl}}" height="50"/>
+      </td>
+      <td class="align-middle">{{product.name}}</td>
+      <td class="align-middle">{{product.unitPrice}}</td>
+      <td class="align-middle">{{product.unitsInStock}}</td>
     </tr>
   </tbody>
   
