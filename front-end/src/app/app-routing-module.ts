@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProductList } from './components/product-list/product-list';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 const routes: Routes = [
   { path: 'category/:id', component: ProductList },
   { path: 'category', component: ProductList },
   { path: 'products', component: ProductList },
-  { path: '', redirectTo: '/products', component: ProductList, pathMatch: 'full' },
-  { path: '**', redirectTo: '/products', component: ProductList, pathMatch: 'full' }
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products', pathMatch: 'full' }
 ];
 
 @NgModule({

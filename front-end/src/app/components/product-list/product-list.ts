@@ -3,7 +3,8 @@ import { ProductService } from '../../services/product-service';
 import { Product } from '../../common/product';
 import { OnInit } from '../../../../node_modules/@angular/core/index';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute } from '../../../../node_modules/@angular/router/router_module.d-mlGavL8F';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-product-list',
@@ -30,7 +31,7 @@ export class ProductList implements OnInit {
     if (hasCategoryId) this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
     else this.currentCategoryId = 1;
 
-    this.productService.getProductList().subscribe(
+    this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {
         this.products = data;
       }
