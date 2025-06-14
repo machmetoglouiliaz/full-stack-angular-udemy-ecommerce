@@ -7,13 +7,15 @@ import { ProductList } from './components/product-list/product-list';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product-service';
 import { ProductCategoryMenu } from './components/product-category-menu/product-category-menu';
+import { Search } from './components/search/search';
 
 
 @NgModule({
   declarations: [
     App,
     ProductList,
-    ProductCategoryMenu
+    ProductCategoryMenu,
+    Search
   ],
   imports: [
     BrowserModule,
