@@ -11,6 +11,12 @@
             <a href="#" class="primary-btn">Add to cart</a>
           </div>
         }
+
+        @if(products.length == 0){
+          <div class="alert alert-warning col-md-12" role="alert">
+            No products found.
+          </div>
+        }
       </div>
     </div>
   </div>
