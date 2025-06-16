@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product-service';
 import { ProductCategoryMenu } from './components/product-category-menu/product-category-menu';
 import { Search } from './components/search/search';
+import { ProductDetails } from './components/product-details/product-details';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { Search } from './components/search/search';
     App,
     ProductList,
     ProductCategoryMenu,
-    Search
+    Search,
+    ProductDetails
   ],
   imports: [
     BrowserModule,

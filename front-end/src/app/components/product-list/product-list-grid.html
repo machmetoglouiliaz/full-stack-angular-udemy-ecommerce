@@ -4,12 +4,20 @@
       <div class="row">
         <!-- loop over the vollection of products -->
         @for(product of products; track $index){
-          <div class="product-box col-md-3">
-            <img src="{{product.imageUrl}}" class="img-responsive"/>
+        <div class="product-box col-md-3">
+
+          <a routerLink="/products/{{ product.id}}">
+            <img src="{{product.imageUrl}}" class="img-responsive" />
+          </a>
+
+          <a routerLink="/products/{{ product.id}}">
             <h1>{{product.name}}</h1>
-            <div class="price">{{product.unitPrice | currency: 'EUR'}}</div>
-            <a href="#" class="primary-btn">Add to cart</a>
-          </div>
+          </a>
+
+          <div class="price">{{product.unitPrice | currency: 'EUR'}}</div>
+
+          <a href="#" class="primary-btn">Add to cart</a>
+        </div>
         }
 
         @if(products.length == 0){
