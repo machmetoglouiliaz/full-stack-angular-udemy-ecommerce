@@ -18,6 +18,9 @@ export class ProductList implements OnInit {
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
+  lastSearched: string = "";
+
+
   pageNumber: number = 1;
   pageSize: number = 10;
   pageTotalElements: number = 0;
@@ -50,10 +53,14 @@ export class ProductList implements OnInit {
     
     const keyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
-    this.productService.searchProducts(keyword).subscribe(
-      data => {
-        this.products = data._embedded.products;
-      }
+    if (this.lastSearched != keyword) {
+      this.pageNumber = 1;
+    }
+
+    this.lastSearched = keyword;
+
+    this.productService.searchProductsPaginated(this.pageNumber - 1, this.pageSize, keyword).subscribe(
+      this.processResult()
     );
     }
 
@@ -64,20 +71,25 @@ export class ProductList implements OnInit {
     if (hasCategoryId) this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
     else this.currentCategoryId = 1;
 
+
     if (this.currentCategoryId != this.previousCategoryId) {
       this.pageNumber = 1;
     }
 
     this.previousCategoryId = this.currentCategoryId;
 
-    this.productService.getProductListPaginated(this.pageNumber - 1, this.pageSize, this.currentCategoryId).subscribe(
-      data => {
-        this.products = data._embedded.products;
-        this.pageNumber = data.page.number + 1;
-        this.pageSize = data.page.size;
-        this.pageTotalElements = data.page.totalElements; 
-      }
+    this.productService.getProductListPaginated(this.pageNumber - 1, this.pageSize, this.currentCategoryId, hasCategoryId).subscribe(
+      this.processResult()
     );
 
+  }
+
+  processResult() {
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.pageNumber = data.page.number + 1;
+      this.pageSize = data.page.size;
+      this.pageTotalElements = data.page.totalElements;
+    }
   }
 }
