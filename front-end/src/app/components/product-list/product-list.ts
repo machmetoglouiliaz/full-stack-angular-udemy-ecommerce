@@ -32,6 +32,13 @@ export class ProductList implements OnInit {
     this.route.paramMap.subscribe(() => { this.listProducts(); });
   }
 
+  addToCart(product: Product) {
+
+    console.log(`Adding to the cart: ${product.name}, ${product.unitPrice}`);
+
+    // TODO: add the item to the cart
+  }
+
   updatePageSize(size: string) {
     this.pageSize = +size;
     this.pageNumber = 1;

@@ -10,6 +10,7 @@ import { ProductCategoryMenu } from './components/product-category-menu/product-
 import { Search } from './components/search/search';
 import { ProductDetails } from './components/product-details/product-details';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductList,
     ProductCategoryMenu,
     Search,
-    ProductDetails
+    ProductDetails,
+    CartStatusComponent
   ],
   imports: [
     BrowserModule,
