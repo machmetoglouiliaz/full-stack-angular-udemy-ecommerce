@@ -15,9 +15,11 @@ export class CartService {
 
   addToCart(cartItem: CartItem) {
 
-    let existsInCart: boolean = false;
-    let existingItem: CartItem | undefined = undefined;
+    
+    let existingItem: CartItem | undefined = this.cartItems.find(tItem => tItem.id === cartItem.id);
+    let existsInCart: boolean = (existingItem != undefined);
 
+    /* //-- REFUCTORED ABOVE --// 
     if (this.cartItems.length > 0) {
 
       for (let tItem of this.cartItems) {
@@ -29,12 +31,17 @@ export class CartService {
 
       existsInCart = (existingItem != undefined);
     }
+    */
 
+    existsInCart ? existingItem!.quantity++ : this.cartItems.push(cartItem);
+
+    /* //-- REFUCTORED ABOVE --//
     if (existsInCart) {
       existingItem!.quantity++;
     } else {
       this.cartItems.push(cartItem);
     }
+    */
 
     this.computeCartTotals();
   }
