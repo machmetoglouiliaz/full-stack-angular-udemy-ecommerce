@@ -26,6 +26,14 @@
           </div>
         }
       </div>
+      <div class="footer-pagination">
+        <ngb-pagination [(page)]="pageNumber"
+                        [pageSize]="pageSize"
+                        [collectionSize]="pageTotalElements"
+                        (pageChange)="listProducts()">
+
+        </ngb-pagination>
+      </div>
     </div>
   </div>
 </div>
