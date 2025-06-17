@@ -5,9 +5,9 @@
 
 ## How to install and run
 - Install the node.js: https://nodejs.org/en/download
-- Install the Angular CLI:
+- Install the Angular 19 CLI (The ng-bootstrap 18 to work has dependency to Angular 19, the moment of this commit it's the newest version of ng-bootstrap):
 ```
-npm install -g @angular/cli
+npm install -g @angular/cli@19
 ```
 - Pull the project to a folder
 - Download the starter files from: 
