@@ -4,9 +4,11 @@ import { ProductList } from './components/product-list/product-list';
 import { BrowserModule } from '@angular/platform-browser';
 import { ProductDetails } from './components/product-details/product-details';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 const routes: Routes = [
+  { path: 'checkout', component: CheckoutComponent },
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'products/:id', component: ProductDetails },
   { path: 'search/:keyword', component: ProductList },
