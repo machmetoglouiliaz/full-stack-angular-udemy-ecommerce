@@ -11,6 +11,7 @@ import { Search } from './components/search/search';
 import { ProductDetails } from './components/product-details/product-details';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CartStatusComponent } from './components/cart-status/cart-status.compon
     ProductCategoryMenu,
     Search,
     ProductDetails,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     BrowserModule,

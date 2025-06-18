@@ -1,0 +1,46 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            @if(cartItems.length != 0){
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="20%">Product Image</th>
+                        <th width="50%">Product Detail</th>
+                        <th width="30%"></th>
+                    </tr>
+
+                    @for (tItem of cartItems; track $index){
+                    <tr>
+                        <td>
+                            <img src="{{ tItem.imageUrl }}" class="img-responsive" width="150px" />
+                        </td>
+
+                        <td>
+                            <p>{{ tItem.name }}</p>
+                            <p>{{ tItem.unitPrice | currency: "EUR" }}</p>
+                        </td>
+
+                        <td>
+                            <div class="item">
+                                <label>Quantity:</label> {{ tItem.quantity }}
+                            </div>
+                            <p class="mt-2">Subtotal: {{tItem.quantity * tItem.unitPrice | currency: "EUR" }}</p>
+                        </td>
+                    </tr>
+                    }
+
+                    <tr>
+                        <td colspan="2"></td>
+                        <td style="font-weight: bold">
+                            <p>Total Quantity: {{ totalQuantity }}</p>
+                            <p>Shipping: Free</p>
+                            <p>Total Price: {{ totalPrice | currency: "EUR" }}</p>
+                        </td>
+                    </tr>
+                </table>
+            } @else {
+                <div class="alert alert-warning col-md-12" role="alert" >Your shopping cart is empty.</div>
+            }
+        </div>
+    </div>
+</div>
