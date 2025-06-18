@@ -38,4 +38,14 @@ export class CartDetailsComponent implements OnInit {
 
     this.cartService.computeCartTotals();
   }
+
+  changeQuantityBy(cartItemId: number, quantity: number) {
+
+    this.cartService.changeQuantityBy(cartItemId, quantity);
+  }
+
+  removeItem(cartItem: CartItem) {
+
+    this.cartService.changeQuantityBy(+cartItem.id, -cartItem.quantity);
+  }
 }

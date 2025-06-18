@@ -22,7 +22,30 @@
 
                         <td>
                             <div class="item">
-                                <label>Quantity:</label> {{ tItem.quantity }}
+                                <label>Quantity:</label>
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <button (click)="changeQuantityBy(+tItem.id, 1)" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="col ml-4 mr-2">
+                                        {{ tItem.quantity }}
+                                    </div>
+
+                                    <div class="col">
+                                        <button (click)="changeQuantityBy(+tItem.id, -1)" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-2">
+                                    <button (click)="removeItem(tItem)" class="btn btn-primary btn-sm">
+                                        Remove
+                                    </button>
+                                </div>
                             </div>
                             <p class="mt-2">Subtotal: {{tItem.quantity * tItem.unitPrice | currency: "EUR" }}</p>
                         </td>
