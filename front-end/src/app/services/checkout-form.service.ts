@@ -8,9 +8,9 @@ export class CheckoutFormService {
 
   constructor() { }
 
-  getCreditCardMonths(): Observable<number[]> {
+  getCreditCardMonths(startMonth: number): Observable<number[]> {
 
-    const startMonth: number = new Date().getMonth() + 1;
+    
     let data: number[] = [];
 
     for (let month = startMonth; month <= 12; month++) {
