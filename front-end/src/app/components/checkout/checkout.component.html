@@ -43,7 +43,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="country">
-                                    <option>TO DO</option>
+                                    @for(country of countries; track $index){
+                                        <option [ngValue]="country">
+                                            {{ country.name }}
+                                        </option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -104,7 +108,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="country">
-                                    <option>TO DO</option>
+                                    @for(country of countries; track $index){
+                                        <option [ngValue]="country">
+                                            {{ country.name }}
+                                        </option>
+                                    }
                                 </select>
                             </div>
                         </div>
