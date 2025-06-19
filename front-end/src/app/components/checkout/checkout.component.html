@@ -197,7 +197,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="expirationMonth">
-                                    <option>TO DO</option>
+                                    @for( month of creditCardMonths; track $index ){
+                                    <option>
+                                        {{ month }}
+                                    </option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -208,7 +212,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="expirationYear">
-                                    <option>TO DO</option>
+                                    @for( year of creditCardYears; track $index ){
+                                    <option>
+                                        {{ year }}
+                                    </option>
+                                    }
                                 </select>
                             </div>
                         </div>
