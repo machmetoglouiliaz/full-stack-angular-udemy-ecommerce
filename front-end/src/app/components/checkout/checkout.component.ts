@@ -185,7 +185,10 @@ export class CheckoutComponent implements OnInit {
     */
 
     this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(
-      data => { this.creditCardMonths = data }
+      data => { 
+        this.creditCardMonths = data;
+        this.checkoutFormGroup.get('creditCard.expirationMonth').setValue(1);
+       }
     );
 
   }
