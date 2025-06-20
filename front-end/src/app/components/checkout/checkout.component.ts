@@ -3,6 +3,7 @@ import { OnInit } from '../../../../node_modules/@angular/core/index';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CheckoutFormService } from '../../services/checkout-form.service';
 import { Country } from '../../common/country';
+import { State } from '../../common/state';
 
 @Component({
   selector: 'app-checkout',
@@ -12,6 +13,7 @@ import { Country } from '../../common/country';
 })
 export class CheckoutComponent implements OnInit {
 
+
   checkoutFormGroup!: FormGroup;
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -19,6 +21,10 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   countries: Country[] = [];
+
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
+
   constructor(private formBuilder: FormBuilder,
               private checkoutFormService: CheckoutFormService
   ) { }
@@ -63,16 +69,26 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.checkoutFormGroup.get('customer')!.value);
+    console.log('Handling purchase submit button')
+    console.log("Customer:" + this.checkoutFormGroup.get('customer')!.value);
+    console.log("Shipping Address:");
+    console.log(this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
+    console.log(this.checkoutFormGroup.get('shippingAddress')!.value.state.name);
+    console.log("Billing Address:");
+    console.log(this.checkoutFormGroup.get('billingAddress')!.value.country.name);
+    console.log(this.checkoutFormGroup.get('billingAddress')!.value.state.name);
+
   }
 
   copyShippingAddressToBillingAddress(event) {
 
     if (event.target.checked) {
       this.checkoutFormGroup.controls['billingAddress'].setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+      this.billingAddressStates = this.shippingAddressStates;
     }
     else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
+      this.billingAddressStates = [];
     }
   }
 
@@ -96,6 +112,31 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutFormService.getCountries().subscribe(
       data => { this.countries = data }
+    );
+  }
+
+  getStates(formGroupName: string) {
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const countryCode = formGroup.value.country.code;
+    const countryName = formGroup.value.country.name;
+
+    this.checkoutFormService.getStates(countryCode).subscribe(
+      data => {
+        console.log(`${formGroupName} country code: ${countryCode}, data size: ${data.length}`);
+        console.log();
+        formGroupName === 'shippingAddress' ? this.shippingAddressStates = data : this.billingAddressStates = data;
+
+        /* --- REFACTORED ABOVE ---
+        if(formGroupName === 'shippingAddress'){
+          this.shippingAddressStates = data;
+        } else {
+          this.billingAddressStates = data;
+        }
+          */
+
+        formGroup.get('state').setValue(data[0]);
+      }
     );
   }
 

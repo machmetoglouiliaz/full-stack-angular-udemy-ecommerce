@@ -42,7 +42,7 @@
                         <div class="col-md-2"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country">
+                                <select formControlName="country" (change)="getStates('shippingAddress')">
                                     @for(country of countries; track $index){
                                         <option [ngValue]="country">
                                             {{ country.name }}
@@ -76,7 +76,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="state">
-                                    <option>TO DO</option>
+                                    @for(state of shippingAddressStates; track $index){
+                                        <option [ngValue]="state">
+                                            {{ state.name }}
+                                        </option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -107,7 +111,7 @@
                         <div class="col-md-2"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country">
+                                <select formControlName="country" (change)="getStates('billingAddress')">
                                     @for(country of countries; track $index){
                                         <option [ngValue]="country">
                                             {{ country.name }}
@@ -141,7 +145,11 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlName="state">
-                                    <option>TO DO</option>
+                                    @for(state of billingAddressStates; track $index){
+                                        <option [ngValue]="state">
+                                            {{ state.name }}
+                                        </option>
+                                    }
                                 </select>
                             </div>
                         </div>

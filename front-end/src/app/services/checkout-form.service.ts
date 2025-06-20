@@ -26,7 +26,10 @@ export class CheckoutFormService {
 
   getStates(countryCode: string): Observable<State[]> {
 
-    const searchStateUrl: string = `${this.statesUrl}/search/findByCountryCode?${countryCode}`;
+    const searchStateUrl: string = `${this.statesUrl}/search/findByCountryCode?code=${countryCode}`;
+
+    console.log(`CHECKOUT SERVICE: COUNTRY: ${countryCode}`);
+    console.log(`CHECKOUT SERVICE: URL: ${searchStateUrl}`);
 
     return this.httpClient.get<GetResponseStates>(searchStateUrl).pipe(
       map(response => response._embedded.states)
