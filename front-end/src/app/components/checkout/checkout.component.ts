@@ -5,6 +5,7 @@ import { CheckoutFormService } from '../../services/checkout-form.service';
 import { Country } from '../../common/country';
 import { State } from '../../common/state';
 import { CheckoutValidators } from '../../validators/checkout-validators';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,6 +19,7 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
   totalPrice: number = 0;
   totalQuantity: number = 0;
+
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
 
@@ -27,7 +29,8 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
-              private checkoutFormService: CheckoutFormService
+              private checkoutFormService: CheckoutFormService,
+              private cartService: CartService
   ) { }
 
 
@@ -66,7 +69,22 @@ export class CheckoutComponent implements OnInit {
     this.getMonths();
     this.getYears();
     this.getCountries();
+    this.getTotals();
 
+  }
+  getTotals() {
+    
+    this.cartService.totalPrice.subscribe(
+      data => {
+        this.totalPrice = data;
+      }
+    );
+
+    this.cartService.totalQuantity.subscribe(
+      data => {
+        this.totalQuantity = data;
+      }
+    );
   }
 
   onSubmit() {
