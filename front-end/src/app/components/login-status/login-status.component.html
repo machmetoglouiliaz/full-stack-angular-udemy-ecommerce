@@ -1,0 +1,15 @@
+<div class="login-status-header">
+    @if(isAuthenticated && userFullName){
+        <div class="login-status-user-info">
+            Welcome back {{ userFullName }}
+        </div>
+    }
+
+    @if(!isAuthenticated){
+        <button routerLink="/login" class="security-btn">Login</button>
+    }
+
+    @if(isAuthenticated){
+        <button (click)="logout()" class="security-btn">Logout</button>
+    }
+</div>
