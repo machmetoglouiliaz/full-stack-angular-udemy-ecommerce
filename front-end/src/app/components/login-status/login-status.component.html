@@ -13,7 +13,7 @@
         <button (click)="logout()" class="security-btn">Logout</button>
     }
 
-    @if(true){
+    @if(isAuthenticated){
         <button routerLink="/members" class="security-btn ml-1">Member</button>
     }
 </div>
