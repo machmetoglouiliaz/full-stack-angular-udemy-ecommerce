@@ -1,9 +1,6 @@
 package com.mourat.udemy.spring_boot_ecommerce.config;
 
-import com.mourat.udemy.spring_boot_ecommerce.entity.Country;
-import com.mourat.udemy.spring_boot_ecommerce.entity.Product;
-import com.mourat.udemy.spring_boot_ecommerce.entity.ProductCategory;
-import com.mourat.udemy.spring_boot_ecommerce.entity.State;
+import com.mourat.udemy.spring_boot_ecommerce.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         disableHttpMethods(ProductCategory.class, config, unsupportedActions);
         disableHttpMethods(Country.class, config, unsupportedActions);
         disableHttpMethods(State.class, config, unsupportedActions);
+        disableHttpMethods(Order.class, config, unsupportedActions);
 
         exposeIds(config);
 
