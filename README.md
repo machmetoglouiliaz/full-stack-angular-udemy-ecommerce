@@ -39,7 +39,7 @@ This repository contains the full stack code for an **e-commerce web application
 
 1️⃣ Clone this repository.
 
-2️⃣ **Backend HTTPS Setup:**
+2️⃣ **Backend Setup:**
 
 - Open `./back-end` in IntelliJ.
 - Add the following properties to `application-local.properties`. When placeholders are shown as `<your-*>`, replace them with your actual values:
@@ -82,7 +82,7 @@ This repository contains the full stack code for an **e-commerce web application
      ```
   5. Run the application using this configuration
 
-3️⃣ **Frontend HTTPS Setup:**
+3️⃣ **Frontend Setup:**
 
 - In `./front-end`, create a folder:
   ```
