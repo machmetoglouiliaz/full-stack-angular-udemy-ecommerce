@@ -63,10 +63,14 @@ public class CheckoutServiceImpl implements CheckoutService{
         List<String> paymentMethodTypes = new ArrayList<>();
         paymentMethodTypes.add("card");
 
+        System.out.println("email: " + paymentInfo.getReceiptEmail());
+
         Map<String, Object> params = new HashMap<>();
         params.put("amount", paymentInfo.getAmount());
         params.put("currency", paymentInfo.getCurrency());
         params.put("payment_method_types", paymentMethodTypes);
+        params.put("description", "Machoi purchase");
+        params.put("receipt_email", paymentInfo.getReceiptEmail());
 
         return PaymentIntent.create(params);
     }

@@ -43,6 +43,7 @@ export class LoginStatusComponent implements OnInit{
   }
 
   logout(){
+    this.storage.removeItem('userEmail');
     this.oktaAuth.signOut();
   }
 }

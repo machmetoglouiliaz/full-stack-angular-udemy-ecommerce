@@ -22,6 +22,7 @@ import { PaymentInfo } from '../../common/payment-info';
 })
 export class CheckoutComponent implements OnInit {
 
+  isDisabled: boolean = false;
 
   checkoutFormGroup!: FormGroup;
   totalPrice: number = 0;
@@ -174,28 +175,45 @@ export class CheckoutComponent implements OnInit {
 
     this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = "EUR";
+    this.paymentInfo.receiptEmail = purchase.customer.email;
 
     if(!this.checkoutFormGroup.invalid && this.displayError.textContent === ""){
+
+      this.isDisabled = true;
 
       this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,{
             payment_method: {
-              card: this.cardElement
+              card: this.cardElement,
+              billing_details: {
+                  email: purchase.customer.email,
+                  name: `${purchase.customer.firstName} ${purchase.customer.lastName}`,
+                  address: {
+                    line1: purchase.billingAddress.street,
+                    city: purchase.billingAddress.city,
+                    state: purchase.billingAddress.state,
+                    postal_code: purchase.billingAddress.zipCode,
+                    country: this.billingAddressCountry.value.code
+                  }
+              }
             }
           }, {handleActions: false})
           .then((result: any) => {
             if (result.error){
               alert(`There was an error: ${result.error.message}`);
+              this.isDisabled = false;
             } else {
               this.checkoutService.placeOrder(purchase).subscribe({
                 next: (response: any) => {
                   alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
 
+                  this.isDisabled = false;
                   this.resetCart();
                 },
                 error: (err: any) => {
                   alert(`There was an error: ${err.message}`);
+                  this.isDisabled = false;
                 }
               })
             }
