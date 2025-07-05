@@ -70,6 +70,14 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -82,6 +90,10 @@
             },
             "development": {
               "buildTarget": "angular-ecommerce:build:development"
+            }
+            ,
+            "qa": {
+              "buildTarget": "angular-ecommerce:build:qa"
             }
           },
           "defaultConfiguration": "development"
