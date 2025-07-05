@@ -4,14 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { Country } from '../common/country';
 import { map } from 'rxjs/operators';
 import { State } from '../common/state';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutFormService {
 
-  private countriesUrl: string = 'http://localhost:8080/api/countries';
-  private statesUrl: string = 'http://localhost:8080/api/states';
+  private endPoint = environment.demoAngularEcommerceUrl;
+  private countriesUrl: string = this.endPoint + '/countries';
+  private statesUrl: string = this.endPoint + '/states';
 
   constructor(private httpClient: HttpClient) { }
 

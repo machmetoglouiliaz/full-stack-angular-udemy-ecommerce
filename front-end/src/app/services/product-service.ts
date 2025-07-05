@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../common/product';
 import { ProductCategory } from '../common/product-category';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { ProductCategory } from '../common/product-category';
 export class ProductService {
   
   
-  private baseUrl = 'http://localhost:8080/api/';
+  private baseUrl = environment.demoAngularEcommerceUrl + "/";
 
   constructor(private httpClient: HttpClient) { }
 
