@@ -172,7 +172,7 @@ export class CheckoutComponent implements OnInit {
 
     purchase.orderItems = orderItems;
 
-    this.paymentInfo.amount = this.totalPrice * 100;
+    this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = "EUR";
 
     if(!this.checkoutFormGroup.invalid && this.displayError.textContent === ""){
@@ -227,6 +227,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.cartItems = [];
     this.cartService.totalPrice.next(0);
     this.cartService.totalQuantity.next(0);
+    this.cartService.persistCartItems();
 
     this.checkoutFormGroup.reset();
 
