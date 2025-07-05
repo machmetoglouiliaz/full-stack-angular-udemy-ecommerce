@@ -284,118 +284,16 @@
 
                 </div>
 
-                <div formGroupName="creditCard" class="form-area">
-                    <h3>Credit Card Info</h3>
+                <!-- Stripe Elements Credit Card Section -->
+                 <div formGroupName="creditCard" class="form-area">
+                    <h3>Credit or Debit Card</h3>
 
-                    <div class="row">
-                        <div class="col-md-2"><label>Card Type</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <select formControlName="cardType">
-                                    <option>Mastercard</option>
-                                    <option>Visa</option>
-                                </select>
-                                 @if(creditCardType.invalid && (creditCardType.dirty || creditCardType.touched)){
-                                    <div class="alert alert-danger mt-1">
-                                        @if(creditCardType.errors['required']){
-                                            <div>Credit card type is required!</div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
+                    <div id="card-element">
+                        <!-- A stripe element will be inserted here -->
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-2"><label>Name On Card</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="nameOnCard" type="text" />
-                                @if(creditCardNameOnCard.invalid && (creditCardNameOnCard.dirty || creditCardNameOnCard.touched)){
-                                    <div class="alert alert-danger mt-1">
-                                        @if(creditCardNameOnCard.errors['required'] || creditCardNameOnCard.errors['notOnlyWhiteSpace']){
-                                            <div>Name on credit card is required!</div>
-                                        }
-                                        @if(creditCardNameOnCard.errors['minlength']){
-                                            <div>Name on credit card must be at least 2 characters long!</div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2"><label>Card Number</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="cardNumber" type="text" />
-                                @if(creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched)){
-                                    <div class="alert alert-danger mt-1">
-                                        @if(creditCardNumber.errors['required']){
-                                            <div>Credit card number is required!</div>
-                                        }
-                                        @if(creditCardNumber.errors['pattern']){
-                                            <div>Security code must be 16 digits number!</div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2"><label>Secutiry Code</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="securityCode" type="text" />
-                                @if(creditCardSecurityCode.invalid && (creditCardSecurityCode.dirty || creditCardSecurityCode.touched)){
-                                    <div class="alert alert-danger mt-1">
-                                        @if(creditCardSecurityCode.errors['required']){
-                                            <div>Security code is required!</div>
-                                        }
-                                        @if(creditCardSecurityCode.errors['pattern']){
-                                            <div>Security code must be 3 digits number!</div>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2"><label>Expiration Month</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <select formControlName="expirationMonth">
-                                    @for( month of creditCardMonths; track $index ){
-                                    <option>
-                                        {{ month }}
-                                    </option>
-                                    }
-                                </select>
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2"><label>Expiration Year</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
-                                    @for( year of creditCardYears; track $index ){
-                                    <option>
-                                        {{ year }}
-                                    </option>
-                                    }
-                                </select>
-                               
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                    <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1'"></div>
+                 </div>
 
                 <div class="form-area">
                     <h3>Review Your Order</h3>

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Order } from '../../common/order';
 import { OrderItem } from '../../common/order-item';
 import { Purchase } from '../../common/purchase';
+import { environment } from '../../../environments/environment';
+import { PaymentInfo } from '../../common/payment-info';
 
 @Component({
   selector: 'app-checkout',
@@ -35,6 +37,12 @@ export class CheckoutComponent implements OnInit {
 
   storage: Storage = sessionStorage;
 
+  stripe = Stripe(environment.stripePublishableKey);
+
+  paymentInfo: PaymentInfo = new PaymentInfo();
+  cardElement: any;
+  displayError: any;
+
   constructor(private formBuilder: FormBuilder,
               private checkoutFormService: CheckoutFormService,
               private cartService: CartService,
@@ -44,6 +52,8 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.setupStripePaymentForm();
 
     const email = JSON.parse(this.storage.getItem('userEmail')!);
 
@@ -68,21 +78,43 @@ export class CheckoutComponent implements OnInit {
         zipcode: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutValidators.notOnlyWhiteSpace])
       }),
       creditCard: this.formBuilder.group({
+        /*
         cardType: new FormControl('', [Validators.required]),
         nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutValidators.notOnlyWhiteSpace]),
         cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
         securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
+        */
       })
     });
 
-    this.getMonths();
-    this.getYears();
+    //this.getMonths();
+    //this.getYears();
     this.getCountries();
     this.getTotals();
 
   }
+
+  setupStripePaymentForm() {
+    var elements = this.stripe.elements();
+
+    this.cardElement = elements.create('card', {hidePostalCode: true});
+
+    this.cardElement.mount('#card-element');
+
+    this.cardElement.on('change', (event:any) => {
+
+      this.displayError = document.getElementById('card-errors');
+
+      if(event.complete){
+        this.displayError.textContent = "";
+      }else if(event.error){
+        this.displayError.textContent = event.error.message;
+      }
+    })
+  }
+
   getTotals() {
     
     this.cartService.totalPrice.subscribe(
@@ -140,7 +172,43 @@ export class CheckoutComponent implements OnInit {
 
     purchase.orderItems = orderItems;
 
-    this.checkoutService.placeOrder(purchase).subscribe(
+    this.paymentInfo.amount = this.totalPrice * 100;
+    this.paymentInfo.currency = "EUR";
+
+    if(!this.checkoutFormGroup.invalid && this.displayError.textContent === ""){
+
+      this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
+        (paymentIntentResponse) => {
+          this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,{
+            payment_method: {
+              card: this.cardElement
+            }
+          }, {handleActions: false})
+          .then((result: any) => {
+            if (result.error){
+              alert(`There was an error: ${result.error.message}`);
+            } else {
+              this.checkoutService.placeOrder(purchase).subscribe({
+                next: (response: any) => {
+                  alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
+
+                  this.resetCart();
+                },
+                error: (err: any) => {
+                  alert(`There was an error: ${err.message}`);
+                }
+              })
+            }
+          })
+        }
+      );
+    } else {
+      this.checkoutFormGroup.markAllAsTouched();
+      return;
+    }
+
+    //---- DEPRECETED ----
+    /* this.checkoutService.placeOrder(purchase).subscribe(
       {
         next: response => {
           alert(`Your order has been received. \nOrder tracking number: ${response.orderTrackingNumber}`);
@@ -151,7 +219,7 @@ export class CheckoutComponent implements OnInit {
           alert(`There was an error: ${err.message}`);
         }
       }
-    );
+    ); */
 
   }
 
@@ -198,7 +266,7 @@ export class CheckoutComponent implements OnInit {
   get creditCardNumber(){return this.checkoutFormGroup.get('creditCard.cardNumber');}
   get creditCardSecurityCode(){return this.checkoutFormGroup.get('creditCard.securityCode');}
 
-  getMonths() {
+  /* getMonths() {
 
     const startMonth: number = new Date().getMonth() + 1;
 
@@ -212,7 +280,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutFormService.getCreditCardYears().subscribe(
       data => { this.creditCardYears = data }
     );
-  }
+  } */
 
   getCountries() {
 
